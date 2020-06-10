@@ -1,0 +1,58 @@
+﻿@model SDA.Models.Tracker
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tracker</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Statuss)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Statuss)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sales)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sales)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Validate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Validate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.returned.Reason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.returned.Reason)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TrackerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

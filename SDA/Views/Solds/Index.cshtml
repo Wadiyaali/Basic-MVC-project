@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SDA.Models.Sold>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Solds")'">Create New</button>
+   
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SaleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrackerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Locat.LocDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vehicle.VehicleDet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tracker.Statuss)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.SaleID)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.TrackerID)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.AppID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Validate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Locat.LocDetails)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vehicle.VehicleDet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tracker.Statuss)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.SaleID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.SaleID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.SaleID })
+        </td>
+    </tr>
+}
+
+</table>
+<div class="container col-md-12">
+    <button class="btn btn-block btn-success" onclick="location.href='@Url.Action("Index", "Locats")';">Add Location</button>
+</div>
+

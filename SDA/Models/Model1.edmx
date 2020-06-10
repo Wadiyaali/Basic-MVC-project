@@ -1,0 +1,509 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VehicleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustID" />
+          </Key>
+          <Property Name="CustID" Type="int" Nullable="false" />
+          <Property Name="Credits" Type="int" />
+          <Property Name="Details" Type="varchar" MaxLength="2000" />
+          <Property Name="Addr" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Locat">
+          <Key>
+            <PropertyRef Name="LocID" />
+          </Key>
+          <Property Name="LocID" Type="int" Nullable="false" />
+          <Property Name="LocDetails" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="promotionID" />
+          </Key>
+          <Property Name="promotionID" Type="int" Nullable="false" />
+          <Property Name="TrackerID" Type="int" />
+        </EntityType>
+        <EntityType Name="returned">
+          <Key>
+            <PropertyRef Name="trackerID" />
+          </Key>
+          <Property Name="trackerID" Type="int" Nullable="false" />
+          <Property Name="Reason" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Sold">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="int" Nullable="false" />
+          <Property Name="TrackerID" Type="int" />
+          <Property Name="LocID" Type="int" />
+          <Property Name="AppID" Type="int" />
+          <Property Name="Validate" Type="varchar" MaxLength="3000" />
+        </EntityType>
+        <EntityType Name="Tracker">
+          <Key>
+            <PropertyRef Name="TrackerID" />
+          </Key>
+          <Property Name="TrackerID" Type="int" Nullable="false" />
+          <Property Name="Statuss" Type="varchar" MaxLength="2000" />
+          <Property Name="Details" Type="varchar" MaxLength="2000" />
+          <Property Name="Sales" Type="int" />
+          <Property Name="Validate" Type="varchar" MaxLength="3000" />
+        </EntityType>
+        <EntityType Name="Trackertype">
+          <Key>
+            <PropertyRef Name="typeID" />
+          </Key>
+          <Property Name="typeID" Type="int" Nullable="false" />
+          <Property Name="TrackerID" Type="int" />
+          <Property Name="NoofSale" Type="int" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="AppID" />
+          </Key>
+          <Property Name="AppID" Type="int" Nullable="false" />
+          <Property Name="VehicleDet" Type="varchar" MaxLength="2000" />
+          <Property Name="RegNo" Type="int" />
+          <Property Name="CustID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Promotion__Track__3D5E1FD2">
+          <End Role="Tracker" Type="Self.Tracker" Multiplicity="0..1" />
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tracker">
+              <PropertyRef Name="TrackerID" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="TrackerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__returned__tracke__403A8C7D">
+          <End Role="Tracker" Type="Self.Tracker" Multiplicity="1" />
+          <End Role="returned" Type="Self.returned" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tracker">
+              <PropertyRef Name="TrackerID" />
+            </Principal>
+            <Dependent Role="returned">
+              <PropertyRef Name="trackerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sold__AppID__4CA06362">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="AppID" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="AppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sold__LocID__4BAC3F29">
+          <End Role="Locat" Type="Self.Locat" Multiplicity="0..1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locat">
+              <PropertyRef Name="LocID" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="LocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sold__TrackerID__4D94879B">
+          <End Role="Tracker" Type="Self.Tracker" Multiplicity="0..1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tracker">
+              <PropertyRef Name="TrackerID" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="TrackerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trackerty__Track__398D8EEE">
+          <End Role="Tracker" Type="Self.Tracker" Multiplicity="0..1" />
+          <End Role="Trackertype" Type="Self.Trackertype" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tracker">
+              <PropertyRef Name="TrackerID" />
+            </Principal>
+            <Dependent Role="Trackertype">
+              <PropertyRef Name="TrackerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicle__CustID__45F365D3">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustID" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VehicleModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locat" EntityType="Self.Locat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="returned" EntityType="Self.returned" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sold" EntityType="Self.Sold" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tracker" EntityType="Self.Tracker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trackertype" EntityType="Self.Trackertype" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Promotion__Track__3D5E1FD2" Association="Self.FK__Promotion__Track__3D5E1FD2">
+            <End Role="Tracker" EntitySet="Tracker" />
+            <End Role="Promotion" EntitySet="Promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__returned__tracke__403A8C7D" Association="Self.FK__returned__tracke__403A8C7D">
+            <End Role="Tracker" EntitySet="Tracker" />
+            <End Role="returned" EntitySet="returned" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sold__AppID__4CA06362" Association="Self.FK__Sold__AppID__4CA06362">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="Sold" EntitySet="Sold" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sold__LocID__4BAC3F29" Association="Self.FK__Sold__LocID__4BAC3F29">
+            <End Role="Locat" EntitySet="Locat" />
+            <End Role="Sold" EntitySet="Sold" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sold__TrackerID__4D94879B" Association="Self.FK__Sold__TrackerID__4D94879B">
+            <End Role="Tracker" EntitySet="Tracker" />
+            <End Role="Sold" EntitySet="Sold" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trackerty__Track__398D8EEE" Association="Self.FK__Trackerty__Track__398D8EEE">
+            <End Role="Tracker" EntitySet="Tracker" />
+            <End Role="Trackertype" EntitySet="Trackertype" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicle__CustID__45F365D3" Association="Self.FK__Vehicle__CustID__45F365D3">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Vehicle" EntitySet="Vehicle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VehicleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustID" />
+          </Key>
+          <Property Name="CustID" Type="Int32" Nullable="false" />
+          <Property Name="Credits" Type="Int32" />
+          <Property Name="Details" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Addr" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vehicles" Relationship="Self.FK__Vehicle__CustID__45F365D3" FromRole="Customer" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Locat">
+          <Key>
+            <PropertyRef Name="LocID" />
+          </Key>
+          <Property Name="LocID" Type="Int32" Nullable="false" />
+          <Property Name="LocDetails" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Solds" Relationship="Self.FK__Sold__LocID__4BAC3F29" FromRole="Locat" ToRole="Sold" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="promotionID" />
+          </Key>
+          <Property Name="promotionID" Type="Int32" Nullable="false" />
+          <Property Name="TrackerID" Type="Int32" />
+          <NavigationProperty Name="Tracker" Relationship="Self.FK__Promotion__Track__3D5E1FD2" FromRole="Promotion" ToRole="Tracker" />
+        </EntityType>
+        <EntityType Name="returned">
+          <Key>
+            <PropertyRef Name="trackerID" />
+          </Key>
+          <Property Name="trackerID" Type="Int32" Nullable="false" />
+          <Property Name="Reason" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tracker" Relationship="Self.FK__returned__tracke__403A8C7D" FromRole="returned" ToRole="Tracker" />
+        </EntityType>
+        <EntityType Name="Sold">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="Int32" Nullable="false" />
+          <Property Name="TrackerID" Type="Int32" />
+          <Property Name="LocID" Type="Int32" />
+          <Property Name="AppID" Type="Int32" />
+          <Property Name="Validate" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Locat" Relationship="Self.FK__Sold__LocID__4BAC3F29" FromRole="Sold" ToRole="Locat" />
+          <NavigationProperty Name="Vehicle" Relationship="Self.FK__Sold__AppID__4CA06362" FromRole="Sold" ToRole="Vehicle" />
+          <NavigationProperty Name="Tracker" Relationship="Self.FK__Sold__TrackerID__4D94879B" FromRole="Sold" ToRole="Tracker" />
+        </EntityType>
+        <EntityType Name="Tracker">
+          <Key>
+            <PropertyRef Name="TrackerID" />
+          </Key>
+          <Property Name="TrackerID" Type="Int32" Nullable="false" />
+          <Property Name="Statuss" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Details" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Sales" Type="Int32" />
+          <Property Name="Validate" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Promotions" Relationship="Self.FK__Promotion__Track__3D5E1FD2" FromRole="Tracker" ToRole="Promotion" />
+          <NavigationProperty Name="returned" Relationship="Self.FK__returned__tracke__403A8C7D" FromRole="Tracker" ToRole="returned" />
+          <NavigationProperty Name="Solds" Relationship="Self.FK__Sold__TrackerID__4D94879B" FromRole="Tracker" ToRole="Sold" />
+          <NavigationProperty Name="Trackertypes" Relationship="Self.FK__Trackerty__Track__398D8EEE" FromRole="Tracker" ToRole="Trackertype" />
+        </EntityType>
+        <EntityType Name="Trackertype">
+          <Key>
+            <PropertyRef Name="typeID" />
+          </Key>
+          <Property Name="typeID" Type="Int32" Nullable="false" />
+          <Property Name="TrackerID" Type="Int32" />
+          <Property Name="NoofSale" Type="Int32" />
+          <NavigationProperty Name="Tracker" Relationship="Self.FK__Trackerty__Track__398D8EEE" FromRole="Trackertype" ToRole="Tracker" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="AppID" />
+          </Key>
+          <Property Name="AppID" Type="Int32" Nullable="false" />
+          <Property Name="VehicleDet" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="RegNo" Type="Int32" />
+          <Property Name="CustID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Vehicle__CustID__45F365D3" FromRole="Vehicle" ToRole="Customer" />
+          <NavigationProperty Name="Solds" Relationship="Self.FK__Sold__AppID__4CA06362" FromRole="Vehicle" ToRole="Sold" />
+        </EntityType>
+        <Association Name="FK__Vehicle__CustID__45F365D3">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustID" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sold__LocID__4BAC3F29">
+          <End Role="Locat" Type="Self.Locat" Multiplicity="0..1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locat">
+              <PropertyRef Name="LocID" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="LocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Promotion__Track__3D5E1FD2">
+          <End Role="Tracker" Type="Self.Tracker" Multiplicity="0..1" />
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tracker">
+              <PropertyRef Name="TrackerID" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="TrackerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__returned__tracke__403A8C7D">
+          <End Role="Tracker" Type="Self.Tracker" Multiplicity="1" />
+          <End Role="returned" Type="Self.returned" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tracker">
+              <PropertyRef Name="TrackerID" />
+            </Principal>
+            <Dependent Role="returned">
+              <PropertyRef Name="trackerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sold__AppID__4CA06362">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="AppID" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="AppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sold__TrackerID__4D94879B">
+          <End Role="Tracker" Type="Self.Tracker" Multiplicity="0..1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tracker">
+              <PropertyRef Name="TrackerID" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="TrackerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trackerty__Track__398D8EEE">
+          <End Role="Tracker" Type="Self.Tracker" Multiplicity="0..1" />
+          <End Role="Trackertype" Type="Self.Trackertype" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tracker">
+              <PropertyRef Name="TrackerID" />
+            </Principal>
+            <Dependent Role="Trackertype">
+              <PropertyRef Name="TrackerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VehicleEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Locats" EntityType="Self.Locat" />
+          <EntitySet Name="Promotions" EntityType="Self.Promotion" />
+          <EntitySet Name="returneds" EntityType="Self.returned" />
+          <EntitySet Name="Solds" EntityType="Self.Sold" />
+          <EntitySet Name="Trackers" EntityType="Self.Tracker" />
+          <EntitySet Name="Trackertypes" EntityType="Self.Trackertype" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <AssociationSet Name="FK__Vehicle__CustID__45F365D3" Association="Self.FK__Vehicle__CustID__45F365D3">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sold__LocID__4BAC3F29" Association="Self.FK__Sold__LocID__4BAC3F29">
+            <End Role="Locat" EntitySet="Locats" />
+            <End Role="Sold" EntitySet="Solds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Promotion__Track__3D5E1FD2" Association="Self.FK__Promotion__Track__3D5E1FD2">
+            <End Role="Tracker" EntitySet="Trackers" />
+            <End Role="Promotion" EntitySet="Promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__returned__tracke__403A8C7D" Association="Self.FK__returned__tracke__403A8C7D">
+            <End Role="Tracker" EntitySet="Trackers" />
+            <End Role="returned" EntitySet="returneds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sold__AppID__4CA06362" Association="Self.FK__Sold__AppID__4CA06362">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="Sold" EntitySet="Solds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sold__TrackerID__4D94879B" Association="Self.FK__Sold__TrackerID__4D94879B">
+            <End Role="Tracker" EntitySet="Trackers" />
+            <End Role="Sold" EntitySet="Solds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trackerty__Track__398D8EEE" Association="Self.FK__Trackerty__Track__398D8EEE">
+            <End Role="Tracker" EntitySet="Trackers" />
+            <End Role="Trackertype" EntitySet="Trackertypes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VehicleModelStoreContainer" CdmEntityContainer="VehicleEntities2">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="VehicleModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustID" ColumnName="CustID" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Addr" ColumnName="Addr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locats">
+            <EntityTypeMapping TypeName="VehicleModel.Locat">
+              <MappingFragment StoreEntitySet="Locat">
+                <ScalarProperty Name="LocID" ColumnName="LocID" />
+                <ScalarProperty Name="LocDetails" ColumnName="LocDetails" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promotions">
+            <EntityTypeMapping TypeName="VehicleModel.Promotion">
+              <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="promotionID" ColumnName="promotionID" />
+                <ScalarProperty Name="TrackerID" ColumnName="TrackerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="returneds">
+            <EntityTypeMapping TypeName="VehicleModel.returned">
+              <MappingFragment StoreEntitySet="returned">
+                <ScalarProperty Name="trackerID" ColumnName="trackerID" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solds">
+            <EntityTypeMapping TypeName="VehicleModel.Sold">
+              <MappingFragment StoreEntitySet="Sold">
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="TrackerID" ColumnName="TrackerID" />
+                <ScalarProperty Name="LocID" ColumnName="LocID" />
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+                <ScalarProperty Name="Validate" ColumnName="Validate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trackers">
+            <EntityTypeMapping TypeName="VehicleModel.Tracker">
+              <MappingFragment StoreEntitySet="Tracker">
+                <ScalarProperty Name="TrackerID" ColumnName="TrackerID" />
+                <ScalarProperty Name="Statuss" ColumnName="Statuss" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Sales" ColumnName="Sales" />
+                <ScalarProperty Name="Validate" ColumnName="Validate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trackertypes">
+            <EntityTypeMapping TypeName="VehicleModel.Trackertype">
+              <MappingFragment StoreEntitySet="Trackertype">
+                <ScalarProperty Name="typeID" ColumnName="typeID" />
+                <ScalarProperty Name="TrackerID" ColumnName="TrackerID" />
+                <ScalarProperty Name="NoofSale" ColumnName="NoofSale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="VehicleModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicle">
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+                <ScalarProperty Name="VehicleDet" ColumnName="VehicleDet" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="CustID" ColumnName="CustID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

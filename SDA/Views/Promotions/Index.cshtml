@@ -1,0 +1,33 @@
+﻿@model IEnumerable<SDA.Models.Promotion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tracker.Statuss)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tracker.Statuss)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.promotionID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.promotionID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.promotionID })
+        </td>
+    </tr>
+}
+
+</table>

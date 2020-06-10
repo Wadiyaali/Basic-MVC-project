@@ -1,0 +1,42 @@
+﻿@model SDA.Models.Vehicle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vehicle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VehicleDet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VehicleDet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Details)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AppID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,56 @@
+﻿@model SDA.Models.Sold
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Sold</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Validate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Validate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Locat.LocDetails)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Locat.LocDetails)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vehicle.VehicleDet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vehicle.VehicleDet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tracker.Statuss)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tracker.Statuss)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

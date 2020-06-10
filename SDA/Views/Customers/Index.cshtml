@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SDA.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("Delete", "Delete")
+</p>
+<p>
+    @Html.ActionLink("Details", "Details")
+</p>
+<p>
+    @Html.ActionLink("Edit", "Edit")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Credits)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Addr)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Credits)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Addr)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CustID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CustID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CustID })
+        </td>
+    </tr>
+}
+
+</table>

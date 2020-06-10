@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SDA.Models.Tracker>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("Delete", "Delete")
+</p>
+<p>
+    @Html.ActionLink("Details", "Details")
+</p>
+<p>
+    @Html.ActionLink("Edit", "Edit")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Statuss)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sales)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Validate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.returned.Reason)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Statuss)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Validate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.returned.Reason)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TrackerID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TrackerID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TrackerID })
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="container col-md-12">
+    <button class="btn btn-block btn-success" onclick="location.href='@Url.Action("Index", "Trackertypes")';">Add Tracker Type</button>
+</div>

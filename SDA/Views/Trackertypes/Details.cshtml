@@ -1,0 +1,34 @@
+﻿@model SDA.Models.Trackertype
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Trackertype</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NoofSale)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoofSale)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tracker.Statuss)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tracker.Statuss)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.typeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SDA.Models.Vehicle>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("Delete", "Delete")
+</p>
+<p>
+    @Html.ActionLink("Details", "Details")
+</p>
+<p>
+    @Html.ActionLink("Edit", "Edit")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleDet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.Details)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleDet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.Details)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AppID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AppID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AppID })
+        </td>
+    </tr>
+}
+
+</table>
+<div class="container col-md-12">
+    <button class="btn btn-block btn-success" onclick="location.href='@Url.Action("Index", "Customers")';">Add New Customer</button>
+</div>
